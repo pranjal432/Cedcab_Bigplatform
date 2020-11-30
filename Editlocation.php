@@ -39,10 +39,16 @@
         
         $sql2="UPDATE tbl_location SET distance='".$_POST['distance']."' WHERE id='".$_GET['id']."'";
         if($connn->con->query($sql2)==true) {
+            echo "<script>alert('Location info. updated');
+            window.location='Locations.php';</script>";
+            
             
         }
         $sql3="UPDATE tbl_location SET `name`='".$_POST['locationname']."' WHERE id='".$_GET['id']."'";
         if($connn->con->query($sql3)==true) {
+            echo "<script>alert('Location info. updated');
+            window.location='Locations.php';</script>";
+            
             
         }
 

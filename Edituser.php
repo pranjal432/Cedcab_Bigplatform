@@ -39,10 +39,14 @@
         
         $sql2="UPDATE tbl_user SET `name`='".$_POST['name']."' WHERE user_id='".$_GET['id']."'";
         if($connn->con->query($sql2)==true) {
+            echo "<script>alert('User info. updated');
+            window.location='Users.php';</script>";
             
         }
         $sql3="UPDATE tbl_user SET `user_name`='".$_POST['username']."' WHERE user_id='".$_GET['id']."'";
         if($connn->con->query($sql3)==true) {
+            echo "<script>alert('User info. updated');
+            window.location='Users.php';</script>";
             
         }
 
