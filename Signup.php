@@ -27,7 +27,7 @@
 
                 $errors=array();
                 
-                setcookie("username", $username, time() + (86400 * 30), "/");
+                setcookie("username", $username, time() + (60*60*24), "/");
                 
 
                 $sql1="SELECT * from `tbl_user` WHERE `user_name`='$username' OR `name`='$name'";

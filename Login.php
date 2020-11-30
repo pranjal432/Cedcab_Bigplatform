@@ -75,7 +75,7 @@
 <form action="Login.php" method="POST">
 <p>
 <label for="username" style="color:black;">Username: <input type="text" name="username"
- required placeholder="Enter Username"></label>
+ required placeholder="Enter Username" value=<?php if(isset($_COOKIE['username'])) {echo $_COOKIE['username']; } ?>></label>
 </p>
 
 <p>
