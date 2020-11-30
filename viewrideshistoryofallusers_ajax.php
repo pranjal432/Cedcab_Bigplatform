@@ -9,7 +9,8 @@
             echo '<table style="padding:40px;text-align:center;color:white;background: rgba(0, 151, 19, 0.5); margin-left:90px;margin-top:30px;" id="table"><tr style="padding:30px;"><th style="padding:30px;"><u>ride_id</u></th>
         <th style="padding:30px;"><u>ride_date</u></th><th style="padding:45px;margin-left:20px;"><u>from</u></th>
         <th style="padding:30px;"><u>to</u></th><th style="padding:30px;"><u>total_distance</u></th>
-        <th style="padding:30px;"><u>luggage</u></th><th style="padding:30px;"><u>total_fare</u></th></tr>';
+        <th style="padding:30px;"><u>luggage</u></th><th style="padding:30px;"><u>total_fare</u></th>
+        <th style="padding:30px;"><u>View Invoice</u></th></tr>';
 
         $sql="SELECT * from tbl_ride WHERE status=2";
         $result=$connn->con->query($sql);
@@ -21,7 +22,8 @@
                 <td>'.$row['to'].'</td>
                 <td>'.$row['total_distance'].'</td>
                 <td>'.$row['luggage'].'</td>
-                <td>'.$row['total_fare'].'</td>';
+                <td>'.$row['total_fare'].'</td>
+                <td><a href="invoiceofuser.php?id='.$row['ride_id'].'">click to see invoice</a></td></tr>';
             }
         }
         echo '</table>';
