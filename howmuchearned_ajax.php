@@ -33,10 +33,13 @@
                     }
                 
                    
-
-                    echo "<tr><td>".$row['user_id']."</td>
+                    if($totalfare!=0) {
+                        echo "<tr><td>".$row['user_id']."</td>
                          <td>".$row['user_name']."</td>
                          <td>".$totalfare."</td></tr>";
+
+                    }
+                    
 
                     
                 }

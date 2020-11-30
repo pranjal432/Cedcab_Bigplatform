@@ -2,7 +2,7 @@
     session_start();
     require "user_header.php";
     require "sidebar_user.php";
-    require "Config.php";
+    //require "Config.php";
     
 
     $connn=new Config("localhost","root","pma","ocb");
@@ -21,6 +21,16 @@
   <option value="ride_date">Date</option>
   <option value="total_distance">Distance</option>
   <option value="total_fare">Fare</option>
+</select>
+</div>
+
+<div style="margin-left:350px;margin-top:5px;">
+<label for="filterbydate" style="color:cyan;font-size:30px;">Filter by Date :</label>
+
+<select name="ridesdatefilters" id="ridedatefilters">
+  <option value="" selected disabled hidden>--Select--</option>
+  <option value="lastweek">Last 7 days</option>
+  <option value="lastmonth">Last 30 days</option>
 </select>
 </div>
 
@@ -135,6 +145,32 @@ if($result->num_rows > 0) {
                 
 
 
+
+            });
+
+            $("#ridedatefilters").change(function() {
+
+                var ridedatefilter=$(this).val();
+
+                if(ridedatefilter=="lastweek") {
+                    
+
+                
+                
+                    $("#newdiv20").load("allrides_ajax_datefilterweek.php",function() {
+                
+                    });
+
+                
+                    
+                }
+                else if(ridedatefilter=="lastmonth") {
+
+                    $("#newdiv20").load("allrides_ajax_datefiltermonth.php",function() {
+                
+                    });
+                    
+                }
 
             });
 

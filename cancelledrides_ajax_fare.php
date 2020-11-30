@@ -17,7 +17,7 @@ $connn=new Config("localhost","root","pma","ocb");
         <th style="padding:30px;"><u>luggage</u></th><th style="padding:30px;"><u>total_fare</u></th>
         <th style="padding:30px;"><u>Action</u></th></tr>';
 
-        $sql="SELECT * from tbl_ride WHERE customer_user_id='".$_SESSION['userdata']['user_id']."' AND status=0 ORDER BY `total_fare` DESC";
+        $sql="SELECT * from tbl_ride WHERE customer_user_id='".$_SESSION['userdata']['user_id']."' AND status=0 ORDER BY `total_distance` DESC";
         $result=$connn->con->query($sql);
         if($result->num_rows > 0) {
             while($row=$result->fetch_assoc()) {

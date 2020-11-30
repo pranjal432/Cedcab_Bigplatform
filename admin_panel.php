@@ -13,8 +13,26 @@
 
     <div style="margin-left:150px;margin-top:60px;">
         <form method="POST">
-            <input type="submit" name="approveloginreq" value="View Login Requests" id="approvel" style="width:260px;height:95px;border-radius:10px;border:2px solid white;background-color:rgba(255,0,0,0.3);color:white;font-size:15px;">
-            <input type="submit" name="approveridereq" value="View Ride Requests" id="approver" style="width:260px;height:95px;border-radius:10px;border:2px solid white;background-color:rgba(255,0,0,0.3);color:white;font-size:15px;margin-left:15px;">
+            <input type="submit" name="approveloginreq" value="View Login Requests(<?php 
+            $count=0;
+            $sql1="SELECT * from tbl_user WHERE is_admin=0 AND isblock=1";
+            $result=$connn->con->query($sql1);
+            if ($result->num_rows > 0) {
+                while ($row= $result->fetch_assoc()) {
+                    $count++;
+                }
+                echo $count;
+            } ?>)" id="approvel" style="width:260px;height:95px;border-radius:10px;border:2px solid white;background-color:rgba(255,0,0,0.3);color:white;font-size:15px;">
+            <input type="submit" name="approveridereq" value="View Ride Requests(<?php 
+            $count=0;
+            $sql1="SELECT * from tbl_ride WHERE `status`=1";
+            $result=$connn->con->query($sql1);
+            if ($result->num_rows > 0) {
+                while ($row= $result->fetch_assoc()) {
+                    $count++;
+                }
+                echo $count;
+            } ?>)" id="approver" style="width:260px;height:95px;border-radius:10px;border:2px solid white;background-color:rgba(255,0,0,0.3);color:white;font-size:15px;margin-left:15px;">
             <input type="submit" name="rideshistory" value="View Rides history of all users" id="ridehistory" style="width:260px;height:95px;border-radius:10px;border:2px solid white;background-color:rgba(255,0,0,0.3);color:white;font-size:15px;margin-left:15px;"><br><br>
             <input type="submit" name="earning" value="View how much you've Earned." id="earned" style="width:260px;height:95px;border-radius:10px;border:2px solid white;background-color:rgba(255,0,0,0.3);color:white;font-size:15px;">
         </form>
@@ -92,14 +110,14 @@ class ApproveRejectRide {
     function cancelRide($b,$connn) {
         
     
-        $sql1="SELECT * from tbl_ride WHERE `status`=1";
+        $sql1="SELECT * from tbl_ride WHERE `status`=1 OR `status`=2";
         $result=$connn->con->query($sql1);
         if ($result->num_rows > 0) {
             while ($row= $result->fetch_assoc()) {
                 
     
-                $sql2="DELETE from tbl_ride WHERE ride_id=$b";
-                if($connn->con->query($sql2)===true) {
+                $sql2="DELETE from tbl_ride WHERE `ride_id`=$b";
+                if($connn->con->query($sql2)==true) {
                     
                     
                 }

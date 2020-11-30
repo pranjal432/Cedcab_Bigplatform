@@ -2,7 +2,7 @@
     session_start();
     require "user_header.php";
     require "sidebar_user.php";
-    require "Config.php";
+    //require "Config.php";
     
 
     $connn=new Config("localhost","root","pma","ocb");

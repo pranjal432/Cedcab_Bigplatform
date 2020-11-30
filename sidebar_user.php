@@ -1,4 +1,10 @@
-<div id="sidebar" style="background-color:slateblue"><div id="sidebar-wrapper"> <!-- Sidebar with logo and menu -->
+<?php
+
+    require "Config.php";
+
+?>
+
+<div id="sidebar" style="background-color:slateblue"><div id="sidebar-wrapper"> 
 			
             <h1 id="sidebar-title"><a href="user_panel.php">User Panel</a></h1>
             
@@ -33,12 +39,75 @@
 
 				<li>
 					<a href="Allrides.php" class="nav-top-item <?php if(in_array($filename, $ridemenu)): ?>current<?php endif; ?>">
-						Rides
+						Rides(<?php
+
+                        $connn=new Config("localhost","root","pma","ocb");
+
+                        $sql="SELECT * from tbl_ride WHERE `customer_user_id`='".$_SESSION['userdata']['user_id']."'";
+                        $result=$connn->con->query($sql);
+                        if($result->num_rows > 0) {
+	                        $count=0;
+                            while($row=$result->fetch_assoc()) {
+                                $count++;
+	                        }
+	                        echo $count;
+                        }
+
+
+                       ?>)
 					</a>
 					<ul>
-						<li><a href="Pendingrides.php" <?php if($filename=="Pendingrides.php"): ?> class="current" <?php endif; ?>>Pending Rides</a></li>
-						<li><a href="Completedrides.php" <?php if($filename=="Completedrides.php"): ?> class="current" <?php endif; ?>>Completed Rides</a></li>
-						<li><a href="Cancelledrides.php" <?php if($filename=="Cancelledrides.php"): ?> class="current" <?php endif; ?>>Cancelled Rides</a></li>
+						<li><a href="Pendingrides.php" <?php if($filename=="Pendingrides.php"): ?> class="current" <?php endif; ?>>Pending Rides(<?php
+
+                                $connn=new Config("localhost","root","pma","ocb");
+
+                                $sql="SELECT * from tbl_ride WHERE `customer_user_id`='".$_SESSION['userdata']['user_id']."' AND status=1";
+                                $result=$connn->con->query($sql);
+                                if($result->num_rows > 0) {
+	                                $count=0;
+                                    while($row=$result->fetch_assoc()) {
+                                        $count++;
+	                                }
+	                                echo $count;
+                                }
+
+
+                                ?>)
+							</a></li>
+						<li><a href="Completedrides.php" <?php if($filename=="Completedrides.php"): ?> class="current" <?php endif; ?>>Completed Rides(<?php
+
+                                $connn=new Config("localhost","root","pma","ocb");
+
+                                $sql="SELECT * from tbl_ride WHERE `customer_user_id`='".$_SESSION['userdata']['user_id']."' AND status=2";
+                                $result=$connn->con->query($sql);
+                                if($result->num_rows > 0) {
+	                                $count=0;
+                                    while($row=$result->fetch_assoc()) {
+                                        $count++;
+	                                }
+	                                echo $count;
+                                }
+
+
+                                ?>)
+							</a></li>
+						<li><a href="Cancelledrides.php" <?php if($filename=="Cancelledrides.php"): ?> class="current" <?php endif; ?>>Cancelled Rides(<?php
+
+                                $connn=new Config("localhost","root","pma","ocb");
+
+                                $sql="SELECT * from tbl_ride WHERE `customer_user_id`='".$_SESSION['userdata']['user_id']."' AND status=0";
+                                $result=$connn->con->query($sql);
+                                if($result->num_rows > 0) {
+	                                $count=0;
+                                    while($row=$result->fetch_assoc()) {
+                                        $count++;
+	                                }
+	                                echo $count;
+                                }
+
+
+                                ?>)
+							</a></li>
 						
 					</ul>
                 </li>
@@ -71,8 +140,7 @@
 					</ul>
 				</li>
 				
-			</ul> <!-- End #main-nav -->
+			</ul> 
 			
 			
-			
-		</div></div> <!-- End #sidebar -->
+		</div></div>
