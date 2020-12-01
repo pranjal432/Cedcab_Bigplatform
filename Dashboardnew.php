@@ -10,11 +10,11 @@
             <th style="padding:30px;"><u>user_id</u></th>
             <th style="padding:30px;"><u>user_name</u></th>
             <th style="padding:30px;"><u>Date</u></th>
-            <th style="padding:30px;"><u>Approve Login Request</u></th>
+            <th style="padding:30px;"><u>Block User</u></th>
 
-        </tr>';
+            </tr>';
 
-            $sql1="SELECT * from tbl_user WHERE is_admin=0 AND isblock=1";
+            $sql1="SELECT * from tbl_user WHERE is_admin=0 AND isblock=0";
             $result=$connn->con->query($sql1);
             if ($result->num_rows > 0) {
                 while ($row= $result->fetch_assoc()) {
@@ -22,8 +22,9 @@
                     echo "<tr><td>".$row['user_id']."</td>
                     <td>".$row['user_name']."</td>
                     <td>".$row['dateofsignup']."</td>
-                    <td><form method='POST'><input type='submit' name='".$row['user_id']."yes' value='Yes' ";
-                    if($row['isblock']==0) {
+                    <td><form method='POST'><input type='submit' name='".$row['user_id']."no' value='Yes' ";
+
+                    if($row['isblock']==1) {
                         echo "disabled";
                     }
                     

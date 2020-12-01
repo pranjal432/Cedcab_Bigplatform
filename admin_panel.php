@@ -57,6 +57,18 @@
 
             
         ?>"  id="earned" style="width:260px;height:95px;border-radius:10px;border:2px solid white;background-color:rgba(255,0,0,0.3);color:white;font-size:15px;">
+
+        <input type="submit" name="approvedloginreq" value="Approved Users(<?php 
+            $count=0;
+            $sql1="SELECT * from tbl_user WHERE is_admin=0 AND isblock=0";
+            $result=$connn->con->query($sql1);
+            if ($result->num_rows > 0) {
+                while ($row= $result->fetch_assoc()) {
+                    $count++;
+                }
+                echo $count;
+            } ?>)" id="approved" style="width:260px;margin-left:15px;height:95px;border-radius:10px;border:2px solid white;background-color:rgba(255,0,0,0.3);color:white;font-size:15px;">
+            <input type="submit" value="Completed Rides" id="pendingrides" style="width:260px;margin-left:15px;height:95px;border-radius:10px;border:2px solid white;background-color:rgba(255,0,0,0.3);color:white;font-size:15px;">
         </form>
     </div>
 
@@ -219,6 +231,11 @@ if ($result->num_rows > 0) {
         $("#newdiv").load("Dashboard.php");
     });
 
+    $("#approved").click(function(event) {
+        event.preventDefault();
+        $("#newdiv").load("Dashboardnew.php");
+    });
+
     $("#approver").click(function(event) {
         event.preventDefault();
         $("#newdiv").load("ride_approval_ajax.php");
@@ -233,6 +250,11 @@ if ($result->num_rows > 0) {
     $("#earned").click(function(event) {
         event.preventDefault();
         $("#newdiv").load("howmuchearned_ajax.php");
+    });
+
+    $("#pendingrides").click(function(event) {
+        event.preventDefault();
+        $("#newdiv").load("pendingridesadmin_ajax.php");
     });
     
 

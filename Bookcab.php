@@ -163,6 +163,7 @@ if(isset($_SESSION['userdata'])) {
                         echo '<option value="CedMini" >CedMini</option>
                         <option value="CedRoyal" >CedRoyal</option>
                         <option value="CedSuv" >CedSuv</option>';
+                        
                     }
                     else if($_SESSION['ct']=="CedMini") {
                         echo '<option value="CedMicro" >CedMicro</option>';
