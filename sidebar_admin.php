@@ -25,12 +25,12 @@
 					
 				</li>
 				
-				<li>
+				<!-- <li>
 					<a href="Users.php" class="nav-top-item no-submenu <?php if($filename=="Users.php"): ?>current<?php endif; ?>">
 						Users
 					</a>
 					
-				</li>
+				</li> -->
 				
 				
 				
@@ -39,21 +39,21 @@
 					<a href="Generalsettings.php" class="nav-top-item <?php if($filename=="Generalsettings.php"): ?>current<?php endif; ?>">
 						Settings
 					</a>
-					<ul>
+					<!-- <ul>
 						<li><a href="Generalsettings.php" <?php if($filename=="Generalsettings.php"): ?> class="current" <?php endif; ?>>General</a></li>
 						
-					</ul>
+					</ul> -->
                 </li> 
                 
                 <li>
 					<a href="Signout.php" class="nav-top-item <?php if($filename=="Signout.php"): ?>current<?php endif; ?>">
-						Account
+						Sign Out
 					</a>
-					<ul>
+					<!-- <ul>
 						
                         
                         <li><a href="Signout.php" <?php if($filename=="Signout.php"): ?> class="current" <?php endif; ?>>Sign out</a></li>
-					</ul>
+					</ul> -->
 				</li>
 				
 			</ul> 

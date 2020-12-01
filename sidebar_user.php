@@ -117,23 +117,23 @@
 					<a href="Generalsettingsuser.php" class="nav-top-item <?php if($filename=="Generalsettingsuser.php"): ?>current<?php endif; ?>">
 						Settings
 					</a>
-					<ul>
+					<!-- <ul>
 						<li><a href="Generalsettingsuser.php" <?php if($filename=="Generalsettingsuser.php"): ?> class="current" <?php endif; ?>>General</a></li>
 						
-					</ul>
+					</ul> -->
                 </li> 
 
 
                 
                 <li>
 					<a href="Signoutuser.php" class="nav-top-item <?php if($filename=="Signoutuser.php"): ?>current<?php endif; ?>">
-						Account
+						Sign Out
 					</a>
-					<ul>
+					<!-- <ul>
 						
                         
                         <li><a href="Signoutuser.php" <?php if($filename=="Signoutuser.php"): ?> class="current" <?php endif; ?>>Sign out</a></li>
-					</ul>
+					</ul> -->
 				</li>
 				
 			</ul> 
