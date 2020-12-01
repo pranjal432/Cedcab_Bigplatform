@@ -257,6 +257,7 @@ if(isset($_SESSION['userdata'])) {
                 $("#luggage").removeAttr("disabled","enabled");
                 $("#newdiv1").hide();
             }
+            
         }
                            );
         $("#luggage").bind("keypress", function (e) {

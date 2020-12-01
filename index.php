@@ -359,4 +359,3 @@
 
 
 
-<!-- $sql="SELECT * FROM tbl_ride WHERE ride_date > DATE_SUB(NOW(), INTERVAL 1 WEEK) AND status=1 or status=3 ORDER BY total_fare ASC"; -->

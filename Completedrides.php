@@ -18,6 +18,7 @@
 
 <select name="allridesfilters" id="allridesfilters">
   <option value="" selected disabled hidden>--Select--</option>
+  <option value="none">None</option>
   <option value="ride_date">Date</option>
   <option value="total_distance">Distance</option>
   <option value="total_fare">Fare</option>
@@ -30,6 +31,7 @@
 
 <select name="ridesdatefilters" id="ridedatefilters">
   <option value="" selected disabled hidden>--Select--</option>
+  <option value="none">None</option>
   <option value="lastweek">Last 7 days</option>
   <option value="lastmonth">Last 30 days</option>
 </select>
@@ -142,6 +144,10 @@ if($result->num_rows > 0) {
                 
                     });
                     
+                } else if(allridesfilter=="none") {
+                    $("#newdiv20").load("completedrides_ajax.php",function() {
+
+                    });
                 }
                 
 
@@ -172,6 +178,10 @@ if($result->num_rows > 0) {
 
                     });
 
+                } else if(ridedatefilter=="none") {
+                    $("#newdiv20").load("completedrides_ajax.php",function() {
+
+                    });
                 }
 
             });

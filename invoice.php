@@ -1,8 +1,8 @@
 <?php
     session_start();
-    require "sidebar_admin.php";
-    require "admin_header.php";
-    require "Config.php";
+    require "sidebar_user.php";
+    require "user_header.php";
+    //require "Config.php";
 
     $connn=new Config("localhost","root","pma","ocb");
 
@@ -18,7 +18,7 @@
     if($result->num_rows > 0) {
         while($row=$result->fetch_assoc()) {
 
-            echo '<div style="text-align:center;margin-top:100px;color:yellow;font-size:30px;"><button onclick="window.print()">Print this page</button><br>
+            echo '<div style="text-align:center;margin-top:100px;color:yellow;font-size:30px;"><button onclick="window.print()">Print this page</button>
             <label>Status: ';
             if($row['status']==1) {
                 echo 'Pending';
@@ -45,7 +45,7 @@
 
         }
 
-        echo "<center><a href='admin_panel.php' style='font-size:30px;'><u>Back to dashboard</u></a></center>";
+        echo "<center><a href='user_panel.php' style='font-size:30px;'><u>Back to dashboard</u></a></center>";
     }
 
     

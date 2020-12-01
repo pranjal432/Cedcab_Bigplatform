@@ -8,10 +8,10 @@
     $connn=new Config("localhost","root","pma","ocb");
 
     if(isset($_SESSION['admindata'])) {
-        echo '<center><h1 style="margin-top:80px;color:yellow;">Welcome <u><b><span style="font-size:50px;">'.$_SESSION['admindata']['adminname'].'</span></b></u> to the Admin Panel </h1></center>';
+        echo '<center><h1 style="margin-top:30px;color:yellow;">Welcome <u><b><span style="font-size:50px;">'.$_SESSION['admindata']['adminname'].'</span></b></u> to the Admin Panel </h1></center>';
 ?>
 
-    <div style="margin-left:150px;margin-top:60px;">
+    <div style="margin-left:150px;margin-top:20px;">
         <form method="POST">
             <input type="submit" name="approveloginreq" value="View Login Requests(<?php 
             $count=0;

@@ -12,10 +12,6 @@
 			    
 				$filename=basename($_SERVER['REQUEST_URI']);
 				
-                
-                
-                $settingmenu=array('generalsettings.php');
-				$accountmenu=array('manageaccount.php','signout.php');
 				$ridemenu=array('Pendingrides.php','Completedrides.php','Cancelledrides.php','Allrides.php');
             ?>
 		  
@@ -25,13 +21,13 @@
 			<ul id="main-nav"> 
 				
 				<li>
-					<a href="user_panel.php" class="nav-top-item no-submenu <?php if($filename=="user_panel.php"): ?> current <?php endif; ?>"> <!-- Add the class "no-submenu" to menu items with no sub menu -->
+					<a href="user_panel.php" class="nav-top-item no-submenu <?php if($filename=="user_panel.php"): ?> current <?php endif; ?>"> 
 						Dashboard
 					</a>       
 				</li>
 				
 				<li> 
-                    <a href="Bookcab.php" class="nav-top-item no-submenu <?php if($filename=="Bookcab.php"): ?>current<?php endif; ?>"> <!-- Add the class "current" to current menu item -->
+                    <a href="Bookcab.php" class="nav-top-item no-submenu <?php if($filename=="Bookcab.php"): ?>current<?php endif; ?>">
 					Book Cab
 					</a>
 					
