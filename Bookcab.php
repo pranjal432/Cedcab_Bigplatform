@@ -274,6 +274,16 @@ if(isset($_SESSION['userdata'])) {
             var x=$("#drp").val();
             var y=$("#cbtype").val();
             var z=$("#luggage").val();
+
+            <?php
+
+            unset($_SESSION['d']);
+            unset($_SESSION['p']);
+            unset($_SESSION['ct']);
+            unset($_SESSION['l']);
+
+
+            ?>
             
 
             $.ajax({

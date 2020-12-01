@@ -17,7 +17,7 @@
 
         </tr>';
 
-            $sql1="SELECT * from tbl_ride";
+            $sql1="SELECT * from tbl_ride WHERE `status`=1";
             $result=$connn->con->query($sql1);
             if ($result->num_rows > 0) {
                 while ($row= $result->fetch_assoc()) {

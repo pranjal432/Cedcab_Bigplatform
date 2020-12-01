@@ -34,7 +34,29 @@
                 echo $count;
             } ?>)" id="approver" style="width:260px;height:95px;border-radius:10px;border:2px solid white;background-color:rgba(255,0,0,0.3);color:white;font-size:15px;margin-left:15px;">
             <input type="submit" name="rideshistory" value="View Rides history of all users" id="ridehistory" style="width:260px;height:95px;border-radius:10px;border:2px solid white;background-color:rgba(255,0,0,0.3);color:white;font-size:15px;margin-left:15px;"><br><br>
-            <input type="submit" name="earning" value="View how much you've Earned." id="earned" style="width:260px;height:95px;border-radius:10px;border:2px solid white;background-color:rgba(255,0,0,0.3);color:white;font-size:15px;">
+            <input type="submit" name="earning" value="Total Earning :<?php  
+            
+                
+            $totalfare=0;
+
+            $sql2="SELECT * from tbl_ride WHERE `status`=2";
+            $result2=$connn->con->query($sql2);
+            if($result2->num_rows > 0) {
+                while($row2=$result2->fetch_assoc()) {
+
+                    $totalfare=$totalfare+$row2['total_fare'];
+                    
+                    
+
+                }
+            }
+        
+           
+           echo " Rs.".$totalfare;
+            
+
+            
+        ?>"  id="earned" style="width:260px;height:95px;border-radius:10px;border:2px solid white;background-color:rgba(255,0,0,0.3);color:white;font-size:15px;">
         </form>
     </div>
 
