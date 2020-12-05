@@ -3,7 +3,7 @@
         require "Config.php";
         $connn=new Config("localhost","root","pma","ocb");
 
-        echo '<table style="padding:40px;text-align:center;color:white;background: rgba(0, 151, 19, 0.5); margin-left:60px;" id="table"><tr style="padding:30px;"><th style="padding:30px;"><u>ride_id</u></th>
+        echo '<table style="padding:40px;margin-top:25px;text-align:center;color:white;background: rgba(0, 151, 19, 0.5); margin-left:60px;" id="table"><tr style="padding:30px;"><th style="padding:30px;"><u>ride_id</u></th>
         <th style="padding:30px;"><u>ride_date</u></th><th style="padding:45px;margin-left:20px;"><u>from</u></th>
         <th style="padding:30px;"><u>to</u></th><th style="padding:30px;"><u>total_distance</u></th>
         <th style="padding:30px;"><u>luggage</u></th><th style="padding:30px;"><u>total_fare</u></th>

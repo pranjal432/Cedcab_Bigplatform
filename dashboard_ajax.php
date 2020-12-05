@@ -198,8 +198,10 @@ $_SESSION['f']=$fare;
 
 
 
+
+
 if($fare!=0) {
-    echo "Total cost: ".($fare)." , Total Distance: ".($totaldistance);
+    echo "Total cost: Rs.".($fare)." , Total Distance: ".($totaldistance);
 }
 }
 else

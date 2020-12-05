@@ -2,8 +2,6 @@
 session_start();
 require "sidebar_user.php";
 require "user_header.php";
-//require "user_panel_lg.php";
-require "locations_lg.php";
 //require "Config.php";
     
 
@@ -35,18 +33,52 @@ if(isset($_SESSION['userdata'])) {
 
                if(isset($_SESSION['p'])) {
 
-                    $a=$_SESSION['p'];
+                    $sql2="SELECT * from tbl_location WHERE is_available=1";
+                    $result2=$connn->con->query($sql2);
+                    if ($result2->num_rows > 0) {
+                        while ($row2= $result2->fetch_assoc()) {
 
-                    $pd=new PickupDrop();
-                    $pd->pickupdb($connn,$a);
+                            if($_SESSION['p']==$row2['name']) {
 
-                } else if(!isset($_SESSION['p'])) {
-                    
-                    
-                    $pd=new PickupDrop();
-                    $pd->pickup($connn);
-                    
+        
 
+                                $sql1="SELECT * from tbl_location WHERE is_available=1";
+                                $result=$connn->con->query($sql1);
+                                if ($result->num_rows > 0) {
+                                    while ($row= $result->fetch_assoc()) {
+                                        if($row['name']!=$_SESSION['p']) {
+                                            echo '<option value="'.$row['name'].'" >'.$row['name'].'</option>';
+                                        } else if($row['name']==$_SESSION['p']) {
+                                            echo '<option value="'.$_SESSION['p'].'" selected>'.$_SESSION['p'].'</option>';
+                                        }
+                    
+                                    }
+                                }
+
+
+
+                            }
+
+
+                        }
+                    }
+
+    
+
+    
+
+                } else {
+                    echo '<option value="" selected disabled hidden>Select Drop Location</option>';
+                    $sql1="SELECT * from tbl_location WHERE is_available=1";
+                    $result=$connn->con->query($sql1);
+                    if ($result->num_rows > 0) {
+                        while ($row= $result->fetch_assoc()) {
+                
+                            echo '<option value="'.$row['name'].'" >'.$row['name'].'</option>';
+                
+            
+                        }
+                    }
                 }
                 ?>
                 
@@ -60,14 +92,59 @@ if(isset($_SESSION['userdata'])) {
 
                 if(isset($_SESSION['d'])) {
 
-                    $pd1=new PickupDrop();
-                    $pd1->dropdb($connn,$_SESSION['d']); 
+                    $sql2="SELECT * from tbl_location WHERE is_available=1";
+                    $result2=$connn->con->query($sql2);
+                    if ($result2->num_rows > 0) {
+                        while ($row2= $result2->fetch_assoc()) {
 
-                } else if(!isset($_SESSION['d'])){
+                            if($_SESSION['d']==$row2['name']) {
+
+                        
+
+                                $sql1="SELECT * from tbl_location WHERE is_available=1";
+                                $result=$connn->con->query($sql1);
+                                if ($result->num_rows > 0) {
+                                    while ($row= $result->fetch_assoc()) {
+                                        if($row['name']!=$_SESSION['d']) {
+                                            echo '<option value="'.$row['name'].'" >'.$row['name'].'</option>';
+                                        } else if($row['name']==$_SESSION['d']) {
+                                            echo '<option value="'.$_SESSION['d'].'" selected>'.$_SESSION['d'].'</option>';
+                                        }
+                                    
+                                    }
+                                }
+        
+        
+        
+                            }
+
+
+                        }
+                    }
+
                     
-                    $pd1=new PickupDrop();
-                    $pd1->drop($connn);
+
+                    
+
+                } else {
+                    echo '<option value="" selected disabled hidden>Select Drop Location</option>';
+                    $sql1="SELECT * from tbl_location WHERE is_available=1";
+                        $result=$connn->con->query($sql1);
+                        if ($result->num_rows > 0) {
+                            while ($row= $result->fetch_assoc()) {
+                                
+                                echo '<option value="'.$row['name'].'" >'.$row['name'].'</option>';
+                                
+                            
+                            }
+                        }
                 }
+
+            ?>
+
+            <?php
+
+                
 
             ?>
                 
@@ -80,19 +157,39 @@ if(isset($_SESSION['userdata'])) {
 
                 if(isset($_SESSION['ct'])) {
 
-                    $cb=new Cabtype();
-                    $cb->cbtypespecial($_SESSION['ct']);
-                
-
-
                     
-                    
+                    if($_SESSION['ct']=="CedMicro") {
+                        echo '<option value="'.$_SESSION['ct'].'" selected>'.$_SESSION['ct'].'</option>';
+                        echo '<option value="CedMini" >CedMini</option>
+                        <option value="CedRoyal" >CedRoyal</option>
+                        <option value="CedSuv" >CedSuv</option>';
+                        
+                    }
+                    else if($_SESSION['ct']=="CedMini") {
+                        echo '<option value="CedMicro" >CedMicro</option>';
+                        echo '<option value="'.$_SESSION['ct'].'" selected>'.$_SESSION['ct'].'</option>';
+                        echo '<option value="CedRoyal" >CedRoyal</option>
+                        <option value="CedSuv" >CedSuv</option>';
+                    }
+                    else if($_SESSION['ct']=="CedRoyal") {
+                        echo '<option value="CedMicro" >CedMicro</option>
+                        <option value="CedMini" >CedMini</option>';
+                        echo '<option value="'.$_SESSION['ct'].'" selected>'.$_SESSION['ct'].'</option>';
+                        echo '<option value="CedSuv" >CedSuv</option>';
+                    }
+                    else if($_SESSION['ct']=="CedSuv") {
+                        echo '<option value="CedMicro" >CedMicro</option>
+                        <option value="CedMini" >CedMini</option>
+                        <option value="CedRoyal" >CedRoyal</option>';
+                        echo '<option value="'.$_SESSION['ct'].'" selected>'.$_SESSION['ct'].'</option>';
+                    }
 
                 } else {
-
-                    $cb=new Cabtype();
-                    $cb->cbtypedefault($_SESSION['ct']);
-                    
+                    echo '<option value="" selected disabled hidden>Select Cab Type</option>';
+                    echo '<option value="CedMicro" >CedMicro</option>
+                    <option value="CedMini" >CedMini</option>
+                    <option value="CedRoyal" >CedRoyal</option>
+                    <option value="CedSuv" >CedSuv</option>';
                 }
 
             ?>
@@ -105,10 +202,10 @@ if(isset($_SESSION['userdata'])) {
 
                 if(isset($_SESSION['l'])) {
 
-                    echo '<input type="number" step="0.1" id="luggage" placeholder="Enter Weight in kg" value="'.$_SESSION['l'].'" class="ibox col-sm-9 col-md-9 col-xs-9 col-lg-9 ml-3 mr-1 form-control-plaintext">';
+                    echo '<input type="text" id="luggage" placeholder="Enter Weight in kg" value="'.$_SESSION['l'].'" class="ibox col-sm-9 col-md-9 col-xs-9 col-lg-9 ml-3 mr-1 form-control-plaintext">';
 
                 } else {
-                    echo '<input type="number" step="0.1" id="luggage" placeholder="Enter Weight in kg" class="ibox col-sm-9 col-md-9 col-xs-9 col-lg-9 ml-3 mr-1 form-control-plaintext">';
+                    echo '<input type="text" id="luggage" placeholder="Enter Weight in kg" class="ibox col-sm-9 col-md-9 col-xs-9 col-lg-9 ml-3 mr-1 form-control-plaintext">';
                 }
 
             ?>
@@ -121,45 +218,32 @@ if(isset($_SESSION['userdata'])) {
 
         <?php
 
-        if(!(isset($_SESSION['f'])) && !(isset($_SESSION['td']))) {
+        // if(!(isset($_SESSION['f']))) {
 
-          echo '<button type="submit" id="calculate" name="Calculate" class="btn btn-danger btn-lg form-control mb-3">Calculate Fare</button>';
-          echo '<button type="submit" id="bookcab" name="bookcab" class="btn btn-danger btn-lg form-control mb-3">Book Cab</button>';
-          echo '<script>
-          $("#bookcab").hide();
-          </script>';
+        //   echo '<button type="submit" id="calculate" name="Calculate" class="btn btn-danger btn-lg form-control mb-3">Calculate Fare</button>';
           
 
-        } else if(isset($_SESSION['f']) && isset($_SESSION['td'])) {
+        // } else if(isset($_SESSION['f'])) {
 
             
-            
-            echo '<button type="submit" id="calculate" name="Calculate" class="btn btn-danger btn-lg form-control mb-3">Calculate Fare</button>';
-            echo '<button type="submit" id="bookcab" name="bookcab" class="btn btn-danger btn-lg form-control mb-3">Book Cab</button>';
-
-            echo '<script>
-            
-                
-                $("#calculate").hide();
-                
-
-            
-                </script>';
-
-            echo '<script>
-            $("#newdiv").text("Total Cost: Rs.'.$_SESSION['f'].' Total Distance: '.$_SESSION['td'].' KM");
-            </script>';
-            
+        //     echo '<button type="submit" id="bookcab" name="bookcab" class="btn btn-danger btn-lg form-control mb-3">Book Cab</button>';
+        //     echo '<script>
+        //     document.ready(function() {
+        //         $("#newdiv").text("Total Cost: Rs.'.$_SESSION['f'].' Total Distance:  KM");
+        //     });
+        //         </script>';
             
             
             
 
-        }
+        // }
 
         ?> 
+        
 
-        <button type="submit" id="cancelride" name="Cancelride" class="btn btn-danger btn-lg form-control mb-3">Cancel Ride</button><br>
-        <a class="btn btn-danger btn-lg mb-2"  id="checkstatus" style="width:342px;">Check Status of this ride</a>
+       <button type="submit" id="bookcab" name="bookcab" class="btn btn-danger btn-lg form-control mb-3">Book Cab</button>   
+       <button type="submit" id="calculate" name="Calculate" class="btn btn-danger btn-lg form-control mb-3">Calculate Fare</button> 
+        <button type="submit" id="cancelride" name="Cancelride" class="btn btn-danger btn-lg form-control mb-3">Cancel Ride</button>
     </form>
 </div>
 
@@ -172,22 +256,14 @@ if(isset($_SESSION['userdata'])) {
 } else {
     echo '<center><h1 style="margin-top:80px;color:yellow;">User Logout, cant access....</h1>
     <a href="index.php" style="color:red;">Go to Home</a></center>';
-    echo '<script>window.location="Logout.php?name=User";</script>';
+    header("Location: Logout.php?name=User");
 }
 ?>
 <script>
     $(document).ready(function() {
 
-        
-
-        //$("#bookcab").hide();
+        $("#bookcab").hide();
         $("#cancelride").hide();
-        $("#checkstatus").hide();
-
-        $("#checkstatus").click(function() {
-            location.reload();
-            window.location="Pendingrides.php";
-        });
 
 
         
@@ -202,7 +278,6 @@ if(isset($_SESSION['userdata'])) {
             $("#calculate").show();
             $("#bookcab").hide();
             $("#newdiv").text("");
-
         });
 
         var cbtype1=$("#cbtype").val();
@@ -217,7 +292,6 @@ if(isset($_SESSION['userdata'])) {
             $("#calculate").show();
             $("#bookcab").hide();
             $("#newdiv").text("");
-            
 
             if(cbtype=="CedMicro") {
                 $("#luggage").val('');
@@ -239,17 +313,20 @@ if(isset($_SESSION['userdata'])) {
             
         }
                            );
-        
-        
-
-        
+        $("#luggage").bind("keypress", function (e) {
+            var keyCode = e.which ? e.which : e.keyCode
+            if (!(keyCode >= 48 && keyCode <= 57)) {
+                //console.log(keycode);
+                return false;
+            }
+        }
+                          );
 
         $("#luggage").click(function() {
 
             $("#calculate").show();
             $("#bookcab").hide();
             $("#newdiv").text("");
-            $("#newdiv").show();
 
         });
 
@@ -266,8 +343,6 @@ if(isset($_SESSION['userdata'])) {
             unset($_SESSION['p']);
             unset($_SESSION['ct']);
             unset($_SESSION['l']);
-            unset($_SESSION['td']);
-            unset($_SESSION['f']);
 
 
             ?>
@@ -284,27 +359,13 @@ if(isset($_SESSION['userdata'])) {
 
                     $("#newdiv").text(result);
                     $("#cancelride").show();
-                    $("#bookcab").hide();
-                    $("#checkstatus").show();
-                    
 
                     setTimeout(function() {
                             $("#cancelride").hide();
 
-                        }, 5000);
-
-                    setTimeout(function() {
-                            $("#checkstatus").hide();
-
                         }, 10000);
 
 
-                    
-                    w=null;
-                    x=null;
-                    y=null;
-                    z=null; 
-                    
                     
 
                     
@@ -384,7 +445,8 @@ if(isset($_SESSION['userdata'])) {
 
             if(w==x && w!=null && x!=null) {
                 alert("pickup and drop location cannot be same.");
-                
+                y=null;
+                z=null;
 
                 $("#bookcab").hide();
                 //$("#luggage").val('');

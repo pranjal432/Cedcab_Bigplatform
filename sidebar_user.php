@@ -4,9 +4,9 @@
 
 ?>
 
-<div id="sidebar" style="background-color:slateblue"><div id="sidebar-wrapper"> 
+<div id="sidebar" style="background-color:#5cbcdb;margin-top:82px;height:834px;"><div id="sidebar-wrapper"> 
 			
-            <h1 id="sidebar-title"><a href="user_panel.php">User Panel</a></h1>
+            <h1  class="text-danger;"><a href="user_panel.php">User Panel</a></h1>
             
 			<?php 
 			    
@@ -86,7 +86,9 @@
 
 
                                 ?>)
-							</a></li>
+							</a>
+						</li>
+						
 						<li><a href="Cancelledrides.php" <?php if($filename=="Cancelledrides.php"): ?> class="current" <?php endif; ?>>Cancelled Rides(<?php
 
                                 $connn=new Config("localhost","root","pma","ocb");
@@ -97,13 +99,20 @@
 	                                $count=0;
                                     while($row=$result->fetch_assoc()) {
                                         $count++;
-	                                }
-	                                echo $count;
+									}
+									if($count==0) {
+										echo "0";
+									}
+									if($count!=0) {
+										echo $count;
+									}
+	                                
                                 }
 
 
                                 ?>)
-							</a></li>
+							</a>
+						</li>
 						
 					</ul>
                 </li>

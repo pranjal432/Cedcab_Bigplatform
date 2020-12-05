@@ -1,11 +1,20 @@
 <?php
 
-    
+    session_start();
     require "Config.php";
+    require "locations_lg.php";
     
 
     $connn=new Config("localhost","root","pma","ocb");
+    
 
+    if(isset($_SESSION['userdata'])) {
+       header("Location:Bookcab.php");
+    }
+
+    if(isset($_SESSION['admindata'])) {
+        header("Location:admin_panel.php");
+    }
 
 
 ?>
@@ -21,7 +30,7 @@
 <body>
 
 <div style="background-color:grey;height:90px;margin-left:10px;margin-right:10px;">
-<h1 style="margin-left:30px;color:sandybrown;">Online Cab Booking</h1>
+<h1 style="margin-left:30px;color:sandybrown;">Online Cab Booking<span style="margin-left:10px;color:green;font-size:40px;"><i class="fa fa-taxi" aria-hidden="true"></i></span></h1>
 <h3 style="margin-left:30px;">powered by xyz.in</h3>
 </div>
 	
@@ -93,16 +102,11 @@
                                         <label class="col-sm-2-auto" for="pickup">PICKUP</label>
                                         <select class="form-control-plaintext col-sm-9 mr-1 drpdown" id="pickp" name="Pickup">
                                         
-                                            <option value="" selected disabled hidden>Select Pickup Location</option>
+                                            
                                             <?php
 
-                                                $sql1="SELECT * from tbl_location WHERE is_available=1";
-                                                $result=$connn->con->query($sql1);
-                                                if ($result->num_rows > 0) {
-                                                    while ($row= $result->fetch_assoc()) {
-                                                        echo '<option value="'.$row['name'].'" >'.$row['name'].'</option>';
-                                                    }
-                                                }
+                                                $pick=new PickupDrop();
+                                                $pick->pickup($connn);
 
                                             ?>
                                             
@@ -115,16 +119,11 @@
                                         <label class="col-sm-2-auto" for="drop">DROP</label>
                                         <select class="form-control-plaintext col-sm-9 mr-1 drpdown" id="drp" name="Drop">
                                         
-                                            <option value="" selected disabled hidden>Select Drop Location</option>
+                                            
                                             <?php
 
-                                                $sql1="SELECT * from tbl_location WHERE is_available=1";
-                                                $result=$connn->con->query($sql1);
-                                                if ($result->num_rows > 0) {
-                                                    while ($row= $result->fetch_assoc()) {
-                                                        echo '<option value="'.$row['name'].'" >'.$row['name'].'</option>';
-                                                    }
-                                                }
+                                                $drp=new PickupDrop();
+                                                $drp->drop($connn);
 
                                             ?>
                                             
@@ -151,7 +150,7 @@
 
                                         <label class="col-sm-2-auto" for="luggage">Luggage</label>
                                         
-                                        <input type="text" id="luggage" placeholder="Enter Weight in kg" class="ibox col-sm-9 col-md-9 col-xs-9 col-lg-9 form-control-plaintext">
+                                        <input type="number" step=".01" id="luggage" placeholder="Enter Weight in kg" class="ibox col-sm-9 col-md-9 col-xs-9 col-lg-9 form-control-plaintext">
                                     
                                     </div>
 
@@ -196,13 +195,7 @@
 
     
 
-    <?php
-
-       
-
-        
-
-    ?>
+    
 
     
 
@@ -211,12 +204,28 @@
         $(document).ready(function() {
             
             $("#bookcab").hide();
+
+            $("#drp").change(function() {
+                $("#calculate").show();
+                $("#bookcab").hide();
+                $("#newdiv").text("");
+            });
+
+            $("#pickp").change(function() {
+                $("#calculate").show();
+                $("#bookcab").hide();
+                $("#newdiv").text("");
+            });
             
             $("#cbtype").change(function() {
                 
                 var cbtype=$(this).val();
+                $("#calculate").show();
+                $("#bookcab").hide();
+                $("#newdiv").text("");
                 
                 if(cbtype=="CedMicro") {
+                    $("#luggage").val('');
                     $("#luggage").attr("disabled","enabled");
                     $("#newdiv1").text("Luggage facility is not available in CedMicro");
                 }
@@ -236,14 +245,15 @@
 
 
             });
+            var z=true;
 
-            $("#luggage").bind("keypress", function (e) {
-                    var keyCode = e.which ? e.which : e.keyCode
-             
-                    if (!(keyCode >= 48 && keyCode <= 57)) {
-                    //console.log(keycode);
-                    return false;
-                    }
+
+            $("#luggage").click(function() {
+
+                $("#calculate").show();
+                $("#bookcab").hide();
+                $("#newdiv").text("");
+
             });
 
             $("#bookcab").click(function(event) {
@@ -271,11 +281,10 @@
 
                 if(w==x && w!=null && x!=null) {
                     alert("pickup and drop location cannot be same.");
-                    y=null;
-                    z=null;
+                    
 
                     $("#bookcab").hide();
-                    $("#luggage").val('');
+                    //$("#luggage").val('');
                 
 
 
@@ -308,6 +317,7 @@
                         $("#newdiv").text(result);
                         if(y!=null && w!=null && x!=null) {
                             $("#bookcab").show();
+                            $("#calculate").hide();
 
                     }
                         
@@ -336,11 +346,6 @@
         });
 
     </script>
-
-</body>
-</html>
-    
-
 
 
 <?php

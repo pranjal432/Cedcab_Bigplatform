@@ -8,8 +8,12 @@
     $connn=new Config("localhost","root","pma","ocb");
 
     if(isset($_SESSION['userdata'])) {
-        echo '<center><h1 style="margin-top:80px;color:yellow;">Welcome <u><b><span style="font-size:50px;">'.$_SESSION['userdata']['username'].'</span></b></u> to the User Panel </h1></center>';
-        
+        echo '<center><h1 style="margin-top:0px;color:yellow;">Welcome <u><b><span style="font-size:50px;">'.$_SESSION['userdata']['username'].'</span></b></u> to the User Panel </h1></center>';
+    } else {
+        echo '<center><h1 style="margin-top:80px;color:yellow;">User Logout, cant access....</h1>
+        <a href="index.php" style="color:red;">Go to Home</a></center>';
+        echo '<script>window.location="Logout.php?name=User";</script>';
+    }
 ?>
 
 
@@ -24,16 +28,8 @@
     <div id="newdiv">
     </div>
 
+    </div>
 
-<?php
-
-    } else {
-        echo '<center><h1 style="margin-top:80px;color:yellow;">User Logout, cant access....</h1>
-        <a href="index.php" style="color:red;">Go to Home</a></center>';
-        header("Location: Logout.php?name=User");
-    }
-
-?>
 
 
 <script>
@@ -52,5 +48,10 @@
 
 </script>
 
-</body>
-</html>
+
+
+<?php
+
+    require "user_footer.php";
+
+?>

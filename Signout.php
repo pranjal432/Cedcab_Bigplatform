@@ -13,24 +13,18 @@
         session_unset();
         session_destroy();
         header("Location: index.php");
+    } else {
+        echo '<center><h1 style="margin-top:80px;color:yellow;">Admin Logout, cant access....</h1>
+        <a href="index.php" style="color:red;">Go to Home</a></center>';
+        header("Location: Logout.php?name=Admin");
+    }
 
 
 ?>
     <div id="newdiv1">
     </div>
 
-    <?php
-
-    ?>
 
 
-
-<?php       
-    } else {
-        echo '<center><h1 style="margin-top:80px;color:yellow;">Admin Logout, cant access....</h1>
-        <a href="index.php" style="color:red;">Go to Home</a></center>';
-        header("Location: Logout.php?name=Admin");
-    }
-        
-
-?>
+</body>
+</html>

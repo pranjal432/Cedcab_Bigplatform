@@ -1,7 +1,62 @@
 body {
-    margin-left:230px;
-    background-image: url("menphone.jpg");
+
+    margin-left:10px;
     
+    
+}
+
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+
+@-webkit-keyframes blink {
+	50% {
+	  background: rgba(255, 0, 0, 0.5);
+	}
+  }
+  
+  @-moz-keyframes blink {
+	50% {
+	  background: rgba(255, 0, 0, 0.5);
+	}
+  }
+  
+  @keyframes blink {
+	50% {
+	  background: rgba(255, 0, 0, 0.5);
+	}
+  }
+  
+  .blink {
+	-webkit-animation-direction: normal;
+	-webkit-animation-duration: 5s;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-name: blink;
+	-webkit-animation-timing-function: linear;
+	-moz-animation-direction: normal;
+	-moz-animation-duration: 5s;
+	-moz-animation-iteration-count: infinite;
+	-moz-animation-name: blink;
+	-moz-animation-timing-function: linear;
+	animation-direction: normal;
+	animation-duration: 5s;
+	animation-iteration-count: infinite;
+	animation-name: blink;
+	animation-timing-function: linear;
+  }
+
+#new {
+	
+	margin-left:230px;
+	margin-right:300px;
+	height:834px;
+	width:83%;
+	background-image: url("menphone.jpg");
+	
 }
 
 

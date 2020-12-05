@@ -2,6 +2,7 @@
     session_start();
     require "header.php";
     require "Config.php";
+    require "UsersSignupLogin.php";
     $connn=new Config("localhost","root","pma","ocb");
 
     
@@ -14,49 +15,12 @@
         $userpassword=isset($_POST['password'])?$_POST['password']:'';
         $userpassword=md5($userpassword);
 
-        $log=new Login();
+        $log=new SignupLogin();
         $log->logi($username,$userpassword,$connn);
 
     }
 
-    class Login {
-
-        function logi($username,$userpassword,$connn) {
-
-
-            $errors=array();
-            $sql1="SELECT * from tbl_user WHERE user_name='".$username."'
-	        AND password='".$userpassword."'";
-            $result=$connn->con->query($sql1);
-            if ($result->num_rows > 0) {
-                while ($row= $result->fetch_assoc()) {
-                    if ($row['is_admin']==0 && $row['isblock']==0) {
-                        $_SESSION['userdata']=array("username"=>$row['user_name'],
-                        "user_id"=>$row['user_id']);
-                        header("Location: Bookcab.php");
-                    } elseif ($row['is_admin']==1 && $row['isblock']==0) {
-                        $_SESSION['admindata']=array("adminname"=>$row['user_name'],
-                        "admin_id"=>$row['user_id']);
-                        header("Location: admin_panel.php");
-                    }
-            
-                }
-
-            } else {
-                $errors[]=array("input"=>"form","msg"=>"Invalid Login credentials!!");
-            }
-            if (count($errors)!=0 ) {
-                foreach ($errors as $error) {
-                    echo "*".$error['msg']."<br>";
-                }
-            }
-
-            $connn->con->close();
-
-
-        }
-
-    }
+    
 
     
 
@@ -74,12 +38,12 @@
 <br>
 <form action="Login.php" method="POST">
 <p>
-<label for="username" style="color:black;">Username: <input type="text" name="username"
+<label for="username" style="color:black;">Username: <input type="text" name="username" style="border-radius:10px;width:230px;height:35px;"
  required placeholder="Enter Username" value=<?php if(isset($_COOKIE['username'])) {echo $_COOKIE['username']; } ?>></label>
 </p>
 
 <p>
-<label for="password" style="color:black;">Password: <input type="password"
+<label for="password" style="color:black;">Password: <input type="password"  style="border-radius:10px;width:230px;height:35px;"
  name="password" required placeholder="Enter Password"></label>
 </p>
 <br>
@@ -90,6 +54,7 @@
 </div>
 </center>
 </div>
+
 
 
 <?php

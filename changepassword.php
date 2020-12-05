@@ -12,7 +12,7 @@
                 
             
                 echo '<input type="text" name="op" placeholder="Enter Old Password" style="width:220px;height:35px;border-radius:10px;border:2px solid white;" required><br><br>
-                <input type="password" name="np" placeholder="Enter New Password" style="width:220px;height:35px;border-radius:10px;border:2px solid white;" required><br><br>
+                <input type="password" name="np" id="npa" placeholder="Enter New Password" style="width:220px;height:35px;border-radius:10px;border:2px solid white;" required><br><br>
                 <br>
 
                 <input type="submit" name="changep" value="Change" style="width:150px;height:35px;border-radius:10px;border:2px solid white;background-color:rgba(0,0,255,0.3);color:white;font-size:20px;">
@@ -26,3 +26,15 @@
 
 
 ?>
+
+<script>
+
+$("#npa").bind("keypress", function (e) {
+            var keyCode = e.which ? e.which : e.keyCode
+            if (keyCode == 32) {
+                //console.log(keycode);
+                return false;
+            }
+    });
+
+</script>

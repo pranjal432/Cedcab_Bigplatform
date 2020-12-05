@@ -205,7 +205,13 @@ $dat=date("Y-m-d h:i:s");
 $sql="INSERT INTO tbl_ride (`ride_date`,`from`,`to`,`total_distance`,`luggage`,`total_fare`,`status`,`customer_user_id`) 
 VALUES('".$dat."','".$pickup."','".$drop."','".$totaldistance."','".$luggage."','".$fare."',1,'".$_SESSION['userdata']['user_id']."')";
 if($connn->con->query($sql)==true) {
-    echo "Yipee!! Your cab is booked from ".$pickup." to ".$drop." with Luggage of ".$luggage."KG . Total fare is: ".$fare." and Total distance is: ".$totaldistance."";
+    echo "Yipee!! Your cab is booked from ".$pickup." to ".$drop." with Luggage of ";
+    if($luggage==0) {
+        echo "0";
+    } else if($luggage!=0) {
+        echo $luggage;
+    }
+    echo " KG . Total fare is: Rs.".$fare." and Total distance is: ".$totaldistance."";
 }
 
 

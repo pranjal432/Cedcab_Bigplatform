@@ -1,6 +1,7 @@
 <?php
 session_start();
 require "Config.php";
+require "user_panel_lg.php";
     
 
 $connn=new Config("localhost","root","pma","ocb");
@@ -10,27 +11,31 @@ $connn=new Config("localhost","root","pma","ocb");
 
 
         
-
-        echo '<table style="padding:40px;text-align:center;color:white;background: rgba(0, 151, 19, 0.5); margin-left:60px;" id="table"><tr style="padding:30px;"><th style="padding:30px;"><u>ride_id</u></th>
+echo '<table style="padding:40px;text-align:center;color:white;background: rgba(0, 151, 19, 0.5); margin-left:60px;" id="table"><tr style="padding:30px;"><th style="padding:30px;"><u>ride_id</u></th>
         <th style="padding:30px;"><u>ride_date</u></th><th style="padding:45px;margin-left:20px;"><u>from</u></th>
         <th style="padding:30px;"><u>to</u></th><th style="padding:30px;"><u>total_distance</u></th>
         <th style="padding:30px;"><u>luggage</u></th><th style="padding:30px;"><u>total_fare</u></th>
         <th style="padding:30px;"><u>Action</u></th></tr>';
 
-        $sql="SELECT * FROM tbl_ride WHERE `ride_date` > DATE_SUB(NOW(), INTERVAL 1 WEEK) AND `status`=0 AND `customer_user_id`='".$_SESSION['userdata']['user_id']."' ORDER BY `ride_date` DESC";
-        $result=$connn->con->query($sql);
-        if($result->num_rows > 0) {
-            while($row=$result->fetch_assoc()) {
-                echo '<tr><td>'.$row['ride_id'].'</td>
+        $session_data=$_SESSION['userdata']['user_id'];
+
+        $all=new Allrides();
+        $all1=$all->cancelledridefilterweek($connn,$session_data);
+
+        foreach($all1 as $key=>$row) {
+
+            echo '<tr><td>'.$row['ride_id'].'</td>
                 <td>'.$row['ride_date'].'</td>
                 <td>'.$row['from'].'</td>
                 <td>'.$row['to'].'</td>
                 <td>'.$row['total_distance'].'</td>
                 <td>'.$row['luggage'].'</td>
                 <td>'.$row['total_fare'].'</td>
-                <td><form method="POST"><input type="submit" name="'.$row['ride_id'].'delete" value="Delete"></form></td></tr>';
-            }
+                <td><form method="POST"><input type="submit" id="xyz" name="'.$row['ride_id'].'delete" value="Delete"></form></td></tr>';
+
         }
+                
+            
         echo '</table>';
 
     ?>

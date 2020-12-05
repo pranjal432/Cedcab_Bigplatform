@@ -13,14 +13,14 @@
 
     This is a Platform where any user can book the cab , and when they login and then they choose what cab they want to take the ride ,
     and after choosing this platform calculates the fare and telll you by showing message like total amount of fare would be charged.
-    This is fast and very vulnerable which is very user friendly and help alot more students also to practising questions papers of different different king of fields.
+    This is fast and very vulnerable which is very user friendly and help alot more people also to ride for different different kind of places.
 
 
 </p>
 
 <p class="home_paragraph">
-    So, this helps to take or grap the opportunity of placing to millions of people and the whole project is divided into two panels , one is Admin panel
-    in which admin can add different different questions of different different types of tests.
+    So, this helps to take or grab the opportunity of placing to millions of people and the whole project is divided into two panels , one is Admin panel
+    in which admin can add different different locations of different different types of places.
 </p>
 
 <p class="home_paragraph">
@@ -35,7 +35,7 @@
 
 <p style="text-align:right;">
     <h2 style="text-align:right;margin-right:90px;color:yellow;">created by:</h2>
-    <h1 style="text-align:right;color:yellow;"><u>Pranjal Shukla</u></h1>
+    <h1 style="text-align:right;color:yellow;margin-right:130px;"><u>XYZ</u></h1>
 </p>
 
 </div>

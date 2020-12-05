@@ -1,6 +1,7 @@
 <?php
     require "header.php";  
     require "Config.php";
+    require "UsersSignupLogin.php";
     $connn=new Config("localhost","root","pma","ocb");
 
     if (isset($_POST['submit'])) {
@@ -15,65 +16,11 @@
     
         $userpassword=md5($userpassword);
 
-        $sign=new Signup();
+        $sign=new SignupLogin();
         $sign->signu($username,$name,$mobile,$userpassword,$connn);
     }
 
-    class Signup {
-
-        
-
-            function signu($username,$name,$mobile,$userpassword,$connn) {
-
-                $errors=array();
-                
-                setcookie("username", $username, time() + (60*60*24), "/");
-                
-
-                $sql1="SELECT * from `tbl_user` WHERE `user_name`='$username' OR `name`='$name'";
     
-                $result=$connn->con->query($sql1);
-                date_default_timezone_set("Asia/Calcutta");
-                $dat=date("Y-m-d h:i:s");
-
-
-                if ($result->num_rows > 0) {
-                    $errors[]=array("input"=>"form","msg"=>"Username already present");
-                    echo "error";
-
-                }
-                if (count($errors)==0) {
-       
-
-                    $sql="INSERT INTO tbl_user (`user_name`,`name`,`dateofsignup`,`mobile`,isblock,`password`,`is_admin`)
-	                VALUES ('".$username."','".$name."','".$dat."','".$mobile."',1,'".$userpassword."',0)";
-        
-                    if ($connn->con->query($sql)===true) {
-                        echo "New record created successfully";
-                        header("Location: Login.php");
-                    } else {
-                        $errors[]=array("input"=>"form","msg"=>"New record not created.");
-                    }
-
-                } else {
-                    foreach ($errors as $error) {
-                        echo "*".$error['msg']."<br>";
-                    }
-                }
-
-                $connn->con->close();
-
-
-
-            }
-
-        
-
-
-
-
-
-    }
     
     
     
@@ -91,20 +38,20 @@
 <br>
 <form action="Signup.php" method="POST">
 <p>
-<label for="username" style="color:black;">Username: <input type="text" name="username" 
-required placeholder="Enter Username"></label>
+<label for="username" style="color:black;" id="uname">Username: <input type="text" name="username" 
+required placeholder="Enter Username" style="border-radius:10px;width:230px;height:35px;"></label>
 </p>
 <p>
-<label for="name" style="color:black;">Name: <input type="text" name="name" 
-required placeholder="Enter Name"></label>
+<label for="name" style="color:black;margin-left:20px;" >Name :  <input type="text" name="name" 
+required placeholder="Enter Name" pattern="^[a-zA-Z_]+( [a-zA-Z_]+)*$" style="border-radius:10px;width:230px;height:35px;"></label>
 </p>
 <p>
-<label for="mobile" style="color:black;">Mobile no.: <input type="text" name="mobile" 
-required placeholder="Enter Mobile no."></label>
+<label for="mobile" id="mn" style="color:black;">Mobile no.: <input type="text" name="mobile" 
+required placeholder="Enter Mobile no." style="border-radius:10px;width:230px;height:35px;margin-right:10px;"></label>
 </p>
 <p>
-<label for="password" style="color:black;">Password: <input type="password"
- name="password" required placeholder="Enter Password"></label>
+<label for="password" style="color:black;" id="pass">Password: <input type="password"
+ name="password" required placeholder="Enter Password" style="border-radius:10px;width:230px;height:35px;"></label>
 </p>
 
 <br>
@@ -115,6 +62,34 @@ required placeholder="Enter Mobile no."></label>
 </div>
 </center>
 </div>
+
+<script>
+
+$("#uname").bind("keypress", function (e) {
+            var keyCode = e.which ? e.which : e.keyCode
+            if (keyCode == 32) {
+                //console.log(keycode);
+                return false;
+            }
+    });
+
+$("#mn").bind("keypress", function (e) {
+    var keyCode = e.which ? e.which : e.keyCode
+    if (!(keyCode >= 48 && keyCode <= 57)) {
+        //console.log(keycode);
+        return false;
+    }
+});
+
+$("#pass").bind("keypress", function (e) {
+            var keyCode = e.which ? e.which : e.keyCode
+            if (keyCode == 32) {
+                //console.log(keycode);
+                return false;
+            }
+    });
+
+</script>
 
 
 

@@ -25,12 +25,12 @@
 					
 				</li>
 				
-				<!-- <li>
+				<li>
 					<a href="Users.php" class="nav-top-item no-submenu <?php if($filename=="Users.php"): ?>current<?php endif; ?>">
 						Users
 					</a>
 					
-				</li> -->
+				</li>
 				
 				
 				

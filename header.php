@@ -8,9 +8,16 @@
 </head>
 <body>
 
-<div style="background-color:grey;height:90px">
-<h1 style="margin-left:30px;color:sandybrown;">Online Cab Booking</h1>
+<div style="background-color:grey;height:90px;">
+
+<h1 style="margin-left:30px;color:sandybrown;">Online Cab Booking<span style="margin-left:10px;color:green;font-size:40px;"><i class="fa fa-taxi" aria-hidden="true"></i></span></h1>
 <h3 style="margin-left:30px;">powered by xyz.in</h3>
+
+
+
+
+
+
 </div>
 	
 	<div style="background-color:black;width:100%;height:30px">
