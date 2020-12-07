@@ -185,6 +185,68 @@
                 } 
             }
 
+            function riderequestTable($connn) {
+
+                $arr=array();
+
+                $sql1="SELECT * from tbl_ride WHERE `status`=1";
+                $result=$connn->con->query($sql1);
+                if ($result->num_rows > 0) {
+                    while ($row= $result->fetch_assoc()) {
+
+                        array_push($arr,$row);
+
+
+                    }
+                    return $arr;
+                }
+
+                
+            }
+
+            function completedridesTable($connn) {
+
+                $arr=array();
+                $sql="SELECT * from tbl_ride WHERE `status`=2";
+                $result=$connn->con->query($sql);
+                if($result->num_rows > 0) {
+                    while($row=$result->fetch_assoc()) {
+                        array_push($arr,$row);
+                    }
+                    return $arr;
+                }
+            }
+
+            function loginrequestTable($connn) {
+
+                $arr=array();
+                $sql1="SELECT * from tbl_user WHERE is_admin=0 AND isblock=1";
+                $result=$connn->con->query($sql1);
+                if ($result->num_rows > 0) {
+                    while ($row= $result->fetch_assoc()) {
+
+                        array_push($arr,$row);
+                    }
+                    return $arr;
+                }
+
+            }
+
+            function approvedusersTable($connn) {
+
+                $arr=array();
+                $sql1="SELECT * from tbl_user WHERE is_admin=0 AND isblock=0";
+                $result=$connn->con->query($sql1);
+                if ($result->num_rows > 0) {
+                    while ($row= $result->fetch_assoc()) {
+
+                        array_push($arr,$row);
+                    }
+                    return $arr;
+                }
+
+            }
+
         }
 
         class Totalfare {
@@ -432,6 +494,20 @@
         
         
             }
+
+            function manageusersTable($connn) {
+
+                $arr=array();
+                $sql1="SELECT * from tbl_user WHERE is_admin=0";
+                $result=$connn->con->query($sql1);
+                if ($result->num_rows > 0) {
+                    while ($row= $result->fetch_assoc()) {
+                        array_push($arr,$row);
+                    }
+                    return $arr;
+                }
+
+            }
         }
 
         class Settings {
@@ -448,6 +524,18 @@
 
             }
 
+            function currentname($connn) {
+
+                $sql1="SELECT * from tbl_user WHERE is_admin=1";
+                $result=$connn->con->query($sql1);
+                if ($result->num_rows > 0) {
+                    while ($row= $result->fetch_assoc()) {
+                        return $row['name'];
+                    }
+                }
+
+            }
+
             function changeMobile($mobile,$connn) {
 
                 $sql3="UPDATE tbl_user SET `mobile`='".$mobile."' WHERE is_admin=1";
@@ -455,6 +543,19 @@
 
                     echo "Mobile No. Changed Successfully.";
 
+                }
+
+            }
+
+            function currentmobile($connn) {
+
+                $sql1="SELECT * from tbl_user WHERE is_admin=1 AND user_id='".$_SESSION['admindata']['admin_id']."'";
+                $result=$connn->con->query($sql1);
+                if ($result->num_rows > 0) {
+                    while ($row= $result->fetch_assoc()) {
+
+                        return $row['mobile'];
+                    }
                 }
 
             }
@@ -484,6 +585,80 @@
 
             }
         }
+
+        class ManageLocations {
+            function manageLocation($connn) {
+
+                $arr=array();
+                $sql1="SELECT * from tbl_location";
+                $result=$connn->con->query($sql1);
+                if ($result->num_rows > 0) {
+                    while ($row= $result->fetch_assoc()) {
+                        array_push($arr,$row);
+                    }
+                    return $arr;
+                }
+
+            }
+        }
+
+        class Rideshistory {
+            function ridehadmin($connn,$session_variable) {
+
+                $arr=array();
+                $sql="SELECT * from tbl_ride";
+                $result=$connn->con->query($sql);
+                if($result->num_rows > 0) {
+                    while($row=$result->fetch_assoc()) {
+                        array_push($arr,$row);
+                    }
+                    return $arr;
+                }
+
+            }
+        }
+
+        class Earned {
+
+            function ernd($connn,$session_variable) {
+                $finalfare=0;
+                $sql1="SELECT * from tbl_user WHERE `is_admin`=0";
+                $result=$connn->con->query($sql1);
+                if ($result->num_rows > 0) {
+                    while ($row= $result->fetch_assoc()) {
+                        $totalfare=0;
+
+                        $sql2="SELECT * from tbl_ride WHERE `customer_user_id`='".$row['user_id']."' AND status=2";
+                        $result2=$connn->con->query($sql2);
+                        if($result2->num_rows > 0) {
+                            while($row2=$result2->fetch_assoc()) {
+
+                                $totalfare=$totalfare+$row2['total_fare'];
+                                $finalfare=$finalfare+$row2['total_fare'];
+                                
+
+                            }
+                        }
+                    
+                    
+                        if($totalfare!=0) {
+                            echo "<tr><td>".$row['user_id']."</td>
+                            <td>".$row['user_name']."</td>
+                            <td>".$totalfare."</td></tr>";
+
+                        }
+                        
+
+                        
+                    }
+                    return $finalfare;
+                }
+
+            }
+
+        }
+
+
 
 
         if(isset($_POST['changen'])) {

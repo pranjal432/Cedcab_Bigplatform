@@ -1,6 +1,8 @@
 <?php
-
-    require "Config.php";
+    
+	
+	require "user_panel_lg.php";
+	
 
 ?>
 
@@ -37,17 +39,10 @@
 					<a href="Allrides.php" class="nav-top-item <?php if(in_array($filename, $ridemenu)): ?>current<?php endif; ?>">
 						Rides(<?php
 
-                        $connn=new Config("localhost","root","pma","ocb");
+                        
 
-                        $sql="SELECT * from tbl_ride WHERE `customer_user_id`='".$_SESSION['userdata']['user_id']."'";
-                        $result=$connn->con->query($sql);
-                        if($result->num_rows > 0) {
-	                        $count=0;
-                            while($row=$result->fetch_assoc()) {
-                                $count++;
-	                        }
-	                        echo $count;
-                        }
+						$all=new AllRides();
+						$all->allridescount($connn);
 
 
                        ?>)
@@ -55,34 +50,20 @@
 					<ul>
 						<li><a href="Pendingrides.php" <?php if($filename=="Pendingrides.php"): ?> class="current" <?php endif; ?>>Pending Rides(<?php
 
-                                $connn=new Config("localhost","root","pma","ocb");
+								$all=new AllRides();
+								$all->pendingridescount($connn);
 
-                                $sql="SELECT * from tbl_ride WHERE `customer_user_id`='".$_SESSION['userdata']['user_id']."' AND status=1";
-                                $result=$connn->con->query($sql);
-                                if($result->num_rows > 0) {
-	                                $count=0;
-                                    while($row=$result->fetch_assoc()) {
-                                        $count++;
-	                                }
-	                                echo $count;
-                                }
+                                
 
 
                                 ?>)
 							</a></li>
 						<li><a href="Completedrides.php" <?php if($filename=="Completedrides.php"): ?> class="current" <?php endif; ?>>Completed Rides(<?php
 
-                                $connn=new Config("localhost","root","pma","ocb");
+								$all=new AllRides();
+								$all->completedridescount($connn);
 
-                                $sql="SELECT * from tbl_ride WHERE `customer_user_id`='".$_SESSION['userdata']['user_id']."' AND status=2";
-                                $result=$connn->con->query($sql);
-                                if($result->num_rows > 0) {
-	                                $count=0;
-                                    while($row=$result->fetch_assoc()) {
-                                        $count++;
-	                                }
-	                                echo $count;
-                                }
+                                
 
 
                                 ?>)
@@ -91,23 +72,10 @@
 						
 						<li><a href="Cancelledrides.php" <?php if($filename=="Cancelledrides.php"): ?> class="current" <?php endif; ?>>Cancelled Rides(<?php
 
-                                $connn=new Config("localhost","root","pma","ocb");
+								$all=new AllRides();
+								$all->cancelledridescount($connn);
 
-                                $sql="SELECT * from tbl_ride WHERE `customer_user_id`='".$_SESSION['userdata']['user_id']."' AND status=0";
-                                $result=$connn->con->query($sql);
-                                if($result->num_rows > 0) {
-	                                $count=0;
-                                    while($row=$result->fetch_assoc()) {
-                                        $count++;
-									}
-									if($count==0) {
-										echo "0";
-									}
-									if($count!=0) {
-										echo $count;
-									}
-	                                
-                                }
+                                
 
 
                                 ?>)

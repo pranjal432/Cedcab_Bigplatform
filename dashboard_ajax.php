@@ -4,6 +4,7 @@ if (isset($_POST['pickup']) && isset($_POST['drop']) && isset( $_POST['cabtype']
 {
     session_start();
     require "Config.php";
+    require "locations_lg.php";
     
 
     $connn=new Config("localhost","root","pma","ocb");
@@ -11,15 +12,17 @@ if (isset($_POST['pickup']) && isset($_POST['drop']) && isset( $_POST['cabtype']
 
 $existing_array=array();
 
-$sql5="SELECT * from tbl_location";
-$result5=$connn->con->query($sql5);
-if($result5->num_rows > 0) {
-    while($row=$result5->fetch_assoc()) {
+    $a=new PickupDrop();
+    $a1=$a->allLocation($connn);
+    
+    foreach($a1 as $key=>$row)
+    {
+
         $new_array=array($row['name']=>$row['distance']);
         $existing_array=array_merge($existing_array, $new_array);
     }
     
-}
+
 
 
 $distance1=0;
@@ -201,7 +204,7 @@ $_SESSION['f']=$fare;
 
 
 if($fare!=0) {
-    echo "Total cost: Rs.".($fare)." , Total Distance: ".($totaldistance);
+    echo "Total cost: Rs.".($fare)." , Total Distance: ".($totaldistance)." KM";
 }
 }
 else

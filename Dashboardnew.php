@@ -1,8 +1,9 @@
 <?php
-            require "Config.php";
+            //require "Config.php";
+            require "admin_panel_lg.php";
     
 
-            $connn=new Config("localhost","root","pma","ocb");
+            
 
             echo '<table style="padding:40px;text-align:center;color:white;background: rgba(0, 151, 19, 0.5); margin-left:200px;margin-top:30px;" id="table">';
 
@@ -14,10 +15,11 @@
 
             </tr>';
 
-            $sql1="SELECT * from tbl_user WHERE is_admin=0 AND isblock=0";
-            $result=$connn->con->query($sql1);
-            if ($result->num_rows > 0) {
-                while ($row= $result->fetch_assoc()) {
+                $a=new Requests();
+                $a1=$a->approvedusersTable($connn);
+
+                foreach($a1 as $key=>$row)
+                {
 
                     echo "<tr><td>".$row['user_id']."</td>
                     <td>".$row['user_name']."</td>
@@ -30,7 +32,7 @@
                     
                     echo "></form></td></tr>";
                 }
-            }
+            echo '</table>';
 
             
             

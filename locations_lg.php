@@ -94,9 +94,23 @@
             }
 
         }
+
+        function allLocation($connn) {
+            $arr=array();
+            $sql5="SELECT * from tbl_location";
+            $result5=$connn->con->query($sql5);
+            if($result5->num_rows > 0) {
+                while($row=$result5->fetch_assoc()) {
+
+                    array_push($arr,$row);
+                }
+                return $arr;
+            }
+        }
     }
 
     class Cabtype {
+        
         function cbtypespecial($session_data) {
 
             if($session_data=="CedMicro") {

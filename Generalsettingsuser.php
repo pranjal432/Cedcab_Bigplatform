@@ -1,12 +1,12 @@
 <?php
-    session_start();
+   
     require "user_header.php";
     require "sidebar_user.php";
-    require "user_panel_lg.php";
+    //require "user_panel_lg.php";
     //require "Config.php";
     
 
-    $connn=new Config("localhost","root","pma","ocb");
+    
 
     if(isset($_SESSION['userdata'])) {
        

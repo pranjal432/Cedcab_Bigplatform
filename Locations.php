@@ -6,7 +6,7 @@
     require "admin_panel_lg.php";
     
 
-    $connn=new Config("localhost","root","pma","ocb");
+   
 
     if(isset($_SESSION['admindata'])) {
 

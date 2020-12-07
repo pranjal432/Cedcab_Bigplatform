@@ -1,8 +1,9 @@
 <?php
-            require "Config.php";
+            //require "Config.php";
+            require "admin_panel_lg.php";
     
 
-            $connn=new Config("localhost","root","pma","ocb");
+            
 
             echo '<table style="padding:40px;text-align:center;color:white;background: rgba(0, 151, 19, 0.5); margin-left:70px;" id="table">';
 
@@ -17,11 +18,11 @@
 
 
         </tr>';
+                $a=new Users();
+                $a1=$a->manageusersTable($connn);
 
-            $sql1="SELECT * from tbl_user WHERE is_admin=0";
-            $result=$connn->con->query($sql1);
-            if ($result->num_rows > 0) {
-                while ($row= $result->fetch_assoc()) {
+                foreach($a1 as $key=>$row)
+                {
 
                     echo "<tr><td>".$row['user_id']."</td>
                     <td>".$row['user_name']."</td>
@@ -32,7 +33,7 @@
                     <td><form method='POST'>
                     <input type='submit' name='".$row['user_id']."delete' value='Delete'></form></td></tr>";
                 }
-            }
+            
 
             
             // <a href='Edituser.php?id=".$row['user_id']."'>Edit</a>

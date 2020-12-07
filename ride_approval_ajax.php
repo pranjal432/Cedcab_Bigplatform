@@ -1,8 +1,9 @@
 <?php
-            require "Config.php";
+           // require "Config.php";
+           require "admin_panel_lg.php";
     
 
-            $connn=new Config("localhost","root","pma","ocb");
+            
 
             echo '<table style="padding:40px;text-align:center;color:white;background: rgba(0, 151, 19, 0.5); margin-left:40px;margin-top:30px;" id="table">';
 
@@ -15,12 +16,12 @@
             <th style="padding:30px;"><u>total_fare</u></th>
             <th style="padding:30px;"><u>Approve Ride Request</u></th>
 
-        </tr>';
+            </tr>';
 
-            $sql1="SELECT * from tbl_ride WHERE `status`=1";
-            $result=$connn->con->query($sql1);
-            if ($result->num_rows > 0) {
-                while ($row= $result->fetch_assoc()) {
+            $a=new Requests();
+            $a1=$a->riderequestTable($connn);
+
+            foreach($a1 as $key=>$row) {
 
                     echo "<tr><td>".$row['ride_id']."</td>
                     <td>".$row['ride_date']."</td>
@@ -40,7 +41,7 @@
                     }
                     
                     echo "></form></td></tr>";
-                }
+                
             }
 
             

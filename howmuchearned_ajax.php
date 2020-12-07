@@ -1,8 +1,9 @@
 <?php
-            require "Config.php";
+            //require "Config.php";
+            require "admin_panel_lg.php";
     
 
-            $connn=new Config("localhost","root","pma","ocb");
+            
 
             echo '<table style="padding:40px;text-align:center;color:white;background: rgba(0, 151, 19, 0.5); margin-left:340px;margin-top:30px;" id="table">';
 
@@ -12,42 +13,18 @@
             <th style="padding:40px;"><u>total fare </u></th>
             
 
-        </tr>';
-            $finalfare=0;
-            $sql1="SELECT * from tbl_user WHERE `is_admin`=0";
-            $result=$connn->con->query($sql1);
-            if ($result->num_rows > 0) {
-                while ($row= $result->fetch_assoc()) {
-                    $totalfare=0;
+            </tr>';
 
-                    $sql2="SELECT * from tbl_ride WHERE `customer_user_id`='".$row['user_id']."' AND status=2";
-                    $result2=$connn->con->query($sql2);
-                    if($result2->num_rows > 0) {
-                        while($row2=$result2->fetch_assoc()) {
+            $session_variable=$_SESSION['admindata']['admin_id'];
 
-                            $totalfare=$totalfare+$row2['total_fare'];
-                            $finalfare=$finalfare+$row2['total_fare'];
-                            
+            $a=new Earned();
+            $a1=$a->ernd($connn,$session_variable);
 
-                        }
-                    }
-                
-                   
-                    if($totalfare!=0) {
-                        echo "<tr><td>".$row['user_id']."</td>
-                         <td>".$row['user_name']."</td>
-                         <td>".$totalfare."</td></tr>";
-
-                    }
-                    
-
-                    
-                }
-            }
+            
 
             echo "</table>";
 
-            echo "<center><h2 style='color:yellow;'>Total earnings : Rs. ".$finalfare."</h2></center>";
+            echo "<center><h2 style='color:yellow;'>Total earnings : Rs. ".$a1."</h2></center>";
 
             
             

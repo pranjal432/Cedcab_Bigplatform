@@ -1,12 +1,12 @@
 <?php
-    session_start();
+    
     require "user_header.php";
     require "sidebar_user.php";
-    require "user_panel_lg.php";
+    //require "user_panel_lg.php";
     //require "Config.php";
     
 
-    $connn=new Config("localhost","root","pma","ocb");
+  
 
     if(isset($_SESSION['userdata'])) {
         echo '<center><h1 style="margin-top:0px;color:yellow;">Welcome <u><b><span style="font-size:50px;">'.$_SESSION['userdata']['username'].'</span></b></u> to the Pending Rides Panel </h1></center>';

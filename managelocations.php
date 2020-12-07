@@ -1,8 +1,9 @@
 <?php
-            require "Config.php";
+            //require "Config.php";
+            require "admin_panel_lg.php";
     
 
-            $connn=new Config("localhost","root","pma","ocb");
+            
 
             echo '<table style="padding:40px;text-align:center;color:white;background: rgba(0, 151, 19, 0.5); margin-left:200px;" id="table">';
 
@@ -13,13 +14,15 @@
             <th style="padding:30px;"><u>Route Activate/Deactivate</u></th>
             <th style="padding:30px;"><u>Actions</u></th>
 
-        </tr>';
+            </tr>';
 
-            $sql1="SELECT * from tbl_location";
-            $result=$connn->con->query($sql1);
-            if ($result->num_rows > 0) {
-                while ($row= $result->fetch_assoc()) {
-
+            
+            $a=new ManageLocations();
+            $a1=$a->manageLocation($connn);
+           
+            foreach($a1 as $key=>$row) 
+            
+            {
                     echo "<tr><td>".$row['id']."</td>
                     <td>".$row['name']."</td>
                     <td>".$row['distance']."</td>
@@ -36,7 +39,7 @@
                     
                     echo "></form></td><td><form method='POST'><a href='Editlocation.php?id=".$row['id']."'>Edit</a>
                     <input type='submit' name='".$row['id']."delete' value='Delete'></form></td></tr>";
-                }
+                
             }
 
             

@@ -1,11 +1,11 @@
 <?php
-    session_start();
+    //session_start();
     require "user_header.php";
     require "sidebar_user.php";
     //require "Config.php";
     
 
-    $connn=new Config("localhost","root","pma","ocb");
+    
 
     if(isset($_SESSION['userdata'])) {
         echo '<center><h1 style="margin-top:0px;color:yellow;">Welcome <u><b><span style="font-size:50px;">'.$_SESSION['userdata']['username'].'</span></b></u> to the User Panel </h1></center>';

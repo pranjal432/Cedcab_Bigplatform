@@ -1,27 +1,30 @@
 <?php
-session_start();
+//session_start();
+require "user_panel_lg.php";
 
 if (isset($_POST['pickup']) && isset($_POST['drop']) && isset( $_POST['cabtype']) )
 {
 
-    require "Config.php";
+    //require "Config.php";
+    
     
 
-    $connn=new Config("localhost","root","pma","ocb");
+    
 
 
 
 $existing_array=array();
 
-$sql5="SELECT * from tbl_location";
-$result5=$connn->con->query($sql5);
-if($result5->num_rows > 0) {
-    while($row=$result5->fetch_assoc()) {
-        $new_array=array($row['name']=>$row['distance']);
-        $existing_array=array_merge($existing_array, $new_array);
-    }
-    
+$a=new AllLocations();
+$a1=$a->allLocation($connn);
+
+foreach($a1 as $key=>$row)
+{
+    $new_array=array($row['name']=>$row['distance']);
+    $existing_array=array_merge($existing_array, $new_array);
 }
+    
+
 
    
 
@@ -202,23 +205,13 @@ elseif($cabtype=="CedSuv")
 date_default_timezone_set("Asia/Calcutta");
 $dat=date("Y-m-d h:i:s");
 
-$sql="INSERT INTO tbl_ride (`ride_date`,`from`,`to`,`total_distance`,`luggage`,`total_fare`,`status`,`customer_user_id`) 
-VALUES('".$dat."','".$pickup."','".$drop."','".$totaldistance."','".$luggage."','".$fare."',1,'".$_SESSION['userdata']['user_id']."')";
-if($connn->con->query($sql)==true) {
-    echo "Yipee!! Your cab is booked from ".$pickup." to ".$drop." with Luggage of ";
-    if($luggage==0) {
-        echo "0";
-    } else if($luggage!=0) {
-        echo $luggage;
-    }
-    echo " KG . Total fare is: Rs.".$fare." and Total distance is: ".$totaldistance."";
-}
+$session_data=$_SESSION['userdata']['user_id'];
+
+$book=new BookCancelCab();
+$book->bookcab($connn,$dat,$pickup,$drop,$totaldistance,$luggage,$fare,$session_data);
 
 
 }
-else
-{
-    echo "Field cant be empty.";
-}
+
 
 ?>

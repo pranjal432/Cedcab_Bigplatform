@@ -1,5 +1,5 @@
 <?php
-session_start();
+//session_start();
 require "sidebar_user.php";
 require "user_header.php";
 //require "user_panel_lg.php";
@@ -7,7 +7,6 @@ require "locations_lg.php";
 //require "Config.php";
     
 
-$connn=new Config("localhost","root","pma","ocb");
 if(isset($_SESSION['userdata'])) {
 ?>
 <div class="container text-center pt-5" style="margin-left:0px;">

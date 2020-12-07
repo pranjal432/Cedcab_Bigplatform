@@ -1,22 +1,16 @@
 <?php
-session_start();
-    require "Config.php";
-    
-
-    $connn=new Config("localhost","root","pma","ocb");
+require "admin_panel_lg.php";
 
 
     echo '<div style="margin-top:60px;text-align:center;">
 
         <form method="POST">';
-
-        $sql1="SELECT * from tbl_user WHERE is_admin=1 AND user_id='".$_SESSION['admindata']['admin_id']."'";
-        $result=$connn->con->query($sql1);
-        if ($result->num_rows > 0) {
-            while ($row= $result->fetch_assoc()) {
-                echo '<label style="color:#98fc03;font-size:25px;">Current Mobile No.:  '.$row['mobile'].'</label><br><br>';
-            }
-        }
+ 
+            $mobile=new Settings();
+            $mobile1=$mobile->currentmobile($connn);
+       
+                echo '<label style="color:#98fc03;font-size:25px;">Current Mobile No.:  '.$mobile1.'</label><br><br>';
+            
 
                 
             

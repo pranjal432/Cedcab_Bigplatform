@@ -6,7 +6,7 @@
     require "admin_panel_lg.php";
     
 
-    $connn=new Config("localhost","root","pma","ocb");
+   
 
     echo '<center><h1 style="margin-top:80px;color:yellow;">Welcome <u><b><span style="font-size:50px;">'.$_SESSION['admindata']['adminname'].'</span></b></u> to the Edit Location Section</h1></center>';
 

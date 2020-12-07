@@ -1,5 +1,5 @@
 <?php
-    session_start();
+    //session_start();
     require "sidebar_user.php";
     require "user_header.php";
     //require "Config.php";

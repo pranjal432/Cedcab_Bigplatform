@@ -1,10 +1,9 @@
 <?php
-session_start();
-require "Config.php";
+
 require "user_panel_lg.php";
     
 
-$connn=new Config("localhost","root","pma","ocb");
+
 
         
 

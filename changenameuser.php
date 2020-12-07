@@ -1,22 +1,17 @@
 <?php
-session_start();
-    require "Config.php";
-    
-
-    $connn=new Config("localhost","root","pma","ocb");
+require "user_panel_lg.php";
 
 
     echo '<div style="margin-top:60px;text-align:center;">
 
         <form method="POST">';
 
-        $sql1="SELECT * from tbl_user WHERE is_admin=0 AND user_id='".$_SESSION['userdata']['user_id']."'";
-        $result=$connn->con->query($sql1);
-        if ($result->num_rows > 0) {
-            while ($row= $result->fetch_assoc()) {
-                echo '<label style="color:#98fc03;font-size:25px;">Current Name:  '.$row['name'].'</label><br><br>';
-            }
-        }
+        $name=new Settings();
+        $name1=$name->currentname($connn);
+
+       
+                echo '<label style="color:#98fc03;font-size:25px;">Current Name:  '.$name1.'</label><br><br>';
+            
 
                 
             

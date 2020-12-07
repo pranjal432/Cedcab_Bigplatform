@@ -1,16 +1,7 @@
 <?php
-session_start();
-require "Config.php";
+
 require "user_panel_lg.php";
     
-
-$connn=new Config("localhost","root","pma","ocb");
-
-        
-
-
-
-        
 
 echo '<table style="padding:40px;text-align:center;color:white;background: rgba(0, 151, 19, 0.5); margin-left:60px;" id="table"><tr style="padding:30px;"><th style="padding:30px;"><u>ride_id</u></th>
 <th style="padding:30px;"><u>ride_date</u></th><th style="padding:45px;margin-left:20px;"><u>from</u></th>

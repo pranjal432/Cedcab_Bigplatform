@@ -1,4 +1,7 @@
 <?php
+    session_start();
+    require "Config.php";
+    $connn=new Config("localhost","root","pma","ocb");
 
     if(isset($_SESSION['userdata'])) {
 
@@ -72,6 +75,16 @@
 
         }
 
+        function currentname($connn) {
+            $sql1="SELECT * from tbl_user WHERE is_admin=0 AND user_id='".$_SESSION['userdata']['user_id']."'";
+            $result=$connn->con->query($sql1);
+            if ($result->num_rows > 0) {
+                while ($row= $result->fetch_assoc()) {
+                    return $row['name'];
+                }
+            }
+        }
+
         function changeMobile($mobile,$connn,$session_data) {
 
             $sql3="UPDATE tbl_user SET `mobile`='".$mobile."' WHERE is_admin=0 AND user_id='".$session_data."'";
@@ -81,6 +94,16 @@
 
             }
 
+        }
+
+        function currentmobile($connn) {
+            $sql1="SELECT * from tbl_user WHERE is_admin=0 AND user_id='".$_SESSION['userdata']['user_id']."'";
+            $result=$connn->con->query($sql1);
+            if ($result->num_rows > 0) {
+                while ($row= $result->fetch_assoc()) {
+                    return $row['mobile'];
+                }
+            }
         }
         
         function changePassword($oldpassword,$newpassword,$connn,$session_data) {
@@ -482,12 +505,142 @@
 
         }
 
+        function allridescount($connn) {
 
+            $sql="SELECT * from tbl_ride WHERE `customer_user_id`='".$_SESSION['userdata']['user_id']."'";
+            $result=$connn->con->query($sql);
+            if($result->num_rows > 0) {
+                $count=0;
+                while($row=$result->fetch_assoc()) {
+                    $count++;
+                }
+                if($count==0) {
+                    echo "0";
+                }
+                if($count!=0) {
+                    echo $count;
+                }
+            }
+        }
+
+        function pendingridescount($connn) {
+
+            $sql="SELECT * from tbl_ride WHERE `customer_user_id`='".$_SESSION['userdata']['user_id']."' AND status=1";
+            $result=$connn->con->query($sql);
+            if($result->num_rows > 0) {
+                $count=0;
+                while($row=$result->fetch_assoc()) {
+                    $count++;
+                }
+                if($count==0) {
+                    echo "0";
+                }
+                if($count!=0) {
+                    echo $count;
+                }
+            }
+        }
+
+        function completedridescount($connn) {
+
+            $sql="SELECT * from tbl_ride WHERE `customer_user_id`='".$_SESSION['userdata']['user_id']."' AND status=2";
+            $result=$connn->con->query($sql);
+            if($result->num_rows > 0) {
+                $count=0;
+                while($row=$result->fetch_assoc()) {
+                    $count++;
+                }
+                if($count==0) {
+                    echo "0";
+                }
+                if($count!=0) {
+                    echo $count;
+                }
+            }
+        }
+
+        function cancelledridescount($connn) {
+
+            $sql="SELECT * from tbl_ride WHERE `customer_user_id`='".$_SESSION['userdata']['user_id']."' AND status=0";
+            $result=$connn->con->query($sql);
+            if($result->num_rows > 0) {
+                $count=0;
+                while($row=$result->fetch_assoc()) {
+                    $count++;
+                }
+                if($count==0) {
+                    echo "0";
+                }
+                if($count!=0) {
+                    echo $count;
+                }
+                
+            }
+        }
+
+
+    }
+
+    class BookCancelCab {
+
+        function bookcab($connn,$dat,$pickup,$drop,$totaldistance,$luggage,$fare,$session_data) {
+
+            $sql="INSERT INTO tbl_ride (`ride_date`,`from`,`to`,`total_distance`,`luggage`,`total_fare`,`status`,`customer_user_id`) 
+            VALUES('".$dat."','".$pickup."','".$drop."','".$totaldistance."','".$luggage."','".$fare."',1,'".$_SESSION['userdata']['user_id']."')";
+            if($connn->con->query($sql)==true) {
+                echo "Yipee!! Your cab is booked from ".$pickup." to ".$drop." with Luggage of ";
+                if($luggage==0) {
+                    echo "0";
+                } else if($luggage!=0) {
+                    echo $luggage;
+                }
+                echo " KG . Total fare is: Rs.".$fare." and Total distance is: ".$totaldistance."";
+            }
+
+        }
+
+        function cancelcab($connn) {
+
+            $sql="SELECT * from tbl_ride WHERE customer_user_id='".$_SESSION['userdata']['user_id']."' ORDER BY ride_date DESC";
+            $result=$connn->con->query($sql);
+            if($result->num_rows >0) {
+                while($row=$result->fetch_assoc()) {
+                    
+                    
+                    
+                    $sql1="DELETE from tbl_ride WHERE `ride_date`='".$row['ride_date']."'";
+                    if($connn->con->query($sql1)==true) {
+                        echo "Your Ride has been Cancelled.";
+                    }
+                    break;
+                    
+                }
+            }
+        }
+    }
+
+    class AllLocations {
+
+        function allLocation($connn) {
+            $arr=array();
+
+            $sql5="SELECT * from tbl_location";
+            $result5=$connn->con->query($sql5);
+            if($result5->num_rows > 0) {
+                while($row=$result5->fetch_assoc()) {
+                    array_push($arr,$row);
+
+
+                }
+                return $arr;
+            }
+
+        }
     }
 
 
 
-    $connn=new Config("localhost","root","pma","ocb");
+   
 
     $sql="SELECT * from tbl_ride WHERE `customer_user_id`='".$_SESSION['userdata']['user_id']."' AND status=0";
     $result=$connn->con->query($sql);
@@ -507,7 +660,7 @@
         }
     }
 
-    $connn=new Config("localhost","root","pma","ocb");
+    
 
     $sql="SELECT * from tbl_ride WHERE `customer_user_id`='".$_SESSION['userdata']['user_id']."' AND status=1";
     $result=$connn->con->query($sql);
@@ -527,7 +680,7 @@
         }
     }
 
-    $connn=new Config("localhost","root","pma","ocb");
+    
 
     $sql="SELECT * from tbl_ride WHERE `customer_user_id`='".$_SESSION['userdata']['user_id']."' AND status=2";
     $result=$connn->con->query($sql);
